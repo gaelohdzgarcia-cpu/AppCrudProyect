@@ -1,0 +1,97 @@
+﻿@{
+}
+@model List<AppCrud.Models.Empleado>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <h2 class="mb-3">Lista empleados</h2>
+
+            <div class="d-flex flex-column flex-sm-row gap-2 mb-3">
+
+                <!-- Botón cerrar sesión -->
+                <form asp-controller="Autenticacion"
+                      asp-action="Logout"
+                      method="post">
+
+                    <button type="submit" class="btn btn-danger">
+                        Cerrar sesión
+                    </button>
+
+                </form>
+
+                <!-- Botón nuevo -->
+                <a asp-controller="Empleado"
+                   asp-action="NuevoEditar"
+                   class="btn btn-success">
+                    Nuevo
+                </a>
+
+            </div>
+
+            <!-- Tabla adaptable -->
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre Completo</th>
+                            <th>Correo</th>
+                            <th>Fecha Contrato</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IdEmpleado</td>
+                                <td>@item.NombreCompleto</td>
+                                <td>@item.Correo</td>
+                                <td>@item.FechaContrato.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    @(item.Activo ? "SI" : "NO")
+                                </td>
+
+                                <td>
+                                    <div class="d-flex flex-column flex-sm-row gap-1">
+
+                                        <a asp-controller="Empleado"
+                                           asp-action="NuevoEditar"
+                                           asp-route-id="@item.IdEmpleado"
+                                           class="btn btn-primary btn-sm">
+                                            Editar
+                                        </a>
+
+                                        <a asp-controller="Empleado"
+                                           asp-action="Eliminar"
+                                           asp-route-id="@item.IdEmpleado"
+                                           onclick="return confirmar()"
+                                           class="btn btn-danger btn-sm">
+                                            Eliminar
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmar() {
+            return confirm("Esta seguro de eliminar el empleado?");
+        }
+    </script>
+}

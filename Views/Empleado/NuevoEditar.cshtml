@@ -1,0 +1,104 @@
+﻿@model AppCrud.ViewModels.EmpleadoVM
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+
+                    @if (Model.IdEmpleado == 0)
+                    {
+                        <h2 class="text-center mb-4">Nuevo Empleado</h2>
+                    }
+                    else
+                    {
+                        <h2 class="text-center mb-4">Editar Empleado</h2>
+                    }
+
+                    <form asp-controller="Empleado"
+                          asp-action="NuevoEditar"
+                          method="post">
+
+                        <input type="hidden" asp-for="IdEmpleado" />
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Nombre Completo
+                            </label>
+
+                            <input class="form-control"
+                                   asp-for="NombreCompleto"
+                                   type="text" />
+
+                            <span asp-validation-for="NombreCompleto"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Correo
+                            </label>
+
+                            <input class="form-control"
+                                   asp-for="Correo"
+                                   type="email" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Clave
+                            </label>
+
+                            <input class="form-control"
+                                   asp-for="Clave"
+                                   type="password"
+                                   placeholder="Escribe una clave" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Fecha de Contrato
+                            </label>
+
+                            <input class="form-control"
+                                   asp-for="FechaContrato"
+                                   type="date" />
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input"
+                                   asp-for="Activo"
+                                   type="checkbox" />
+
+                            <label class="form-check-label">
+                                Activo
+                            </label>
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row gap-2">
+
+                            <button class="btn btn-primary"
+                                    type="submit">
+                                Guardar
+                            </button>
+
+                            <a class="btn btn-secondary"
+                               asp-controller="Empleado"
+                               asp-action="Lista">
+                                Regresar
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
